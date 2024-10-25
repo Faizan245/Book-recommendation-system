@@ -54,21 +54,23 @@ const BookRecommendation = () => {
     }, [readingList]);
 
     return (
-        <div className="w-[500px] rounded-[20px] shadow-xl p-4 bg-white h-[600px] overflow-scroll">
-            <h2 className="text-xl font-semibold text-[#175574] mb-4">Recommended Books</h2>
+        <div className="w-full rounded-[20px] shadow-xl p-4 bg-white overflow-x-scroll">
+            <h2 className="text-xl font-semibold text-[#175574] max-lg:text-sm mb-4">Recommended Books</h2>
             {recommendedBooks.length > 0 ? (
-                <ul className="space-y-4">
+                <ul className="space-x-4 flex">
                     {recommendedBooks.map((book) => (
                         <li key={book.id} className="p-4 border border-gray-200 rounded-lg bg-gray-50 flex items-start">
                             {book.volumeInfo.imageLinks?.thumbnail ? (
-                                <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} className="w-14 h-15 mr-4" />
+                                <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} className="w-14 h-15 max-lg:w-11 max-lg:h-11 mr-4" />
                             ) : (
-                                <div className="w-14 h-15 mr-4 bg-gray-300 flex items-center justify-center">No Image</div>
+                                <div className="w-14 h-15 max-lg:w-11 max-lg:h-11 mr-4 bg-gray-300 flex items-center justify-center">No Image</div>
                             )}
-                            <div className="flex justify-between w-full">
+                            <div className="flex justify-between w-[300px] max-lg:w-[250px] max-sm:w-[220px]">
                                 <div>
-                                    <h3 className="text-md font-semibold">{book.volumeInfo.title}</h3>
-                                    <p className="text-gray-600 text-sm">{book.volumeInfo.authors?.join(', ')}</p>
+                                    <h3 className="text-md font-semibold max-lg:text-sm max-sm:text-[12px]">{book.volumeInfo.title}</h3>
+                                    <p className="text-gray-600 text-sm max-sm:text-[12px]">
+                                        {book.volumeInfo.authors?.slice(0, 4).join(', ')}
+                                    </p>
                                 </div>
                             </div>
                         </li>
