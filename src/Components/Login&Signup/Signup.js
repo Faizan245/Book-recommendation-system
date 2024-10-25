@@ -11,6 +11,7 @@ const Signup = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [apiError, setApiError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const api = process.env.REACT_APP_API_URL;
 
   const navigate = useNavigate();
 
@@ -31,10 +32,11 @@ const Signup = () => {
       
       try {
         // Call API to create a new user
-        const response = await axios.post('https://api.example.com/signup', {
+        const response = await axios.post(`${api}/signup`, {
           name,
           email,
           password,
+          confirmPassword
         });
 
         // Handle success response

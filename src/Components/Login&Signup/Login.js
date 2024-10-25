@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setToken } from '../../store/authSlice';
 
 
 const Login = () => {
@@ -9,8 +11,10 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [apiError, setApiError] = useState('');
+  const api = process.env.REACT_APP_API_URL;
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
 
   // Handle form submission
@@ -29,14 +33,14 @@ const Login = () => {
       
       try {
         // Call API to authenticate the user
-        const response = await axios.post('https://api.example.com/login', {
+        const response = await axios.post(`${api}/login`, {
           email,
           password,
         });
 
         // Handle success response
         console.log('Login successful:', response.data);
-        alert('Login successful!');
+        dispatch(setToken(response.data.token));
         navigate('/')
       } catch (error) {
         // Handle API error
@@ -126,6 +130,7 @@ const Login = () => {
           >
             {isSubmitting ? 'Logging in...' : 'Login'}
           </button>
+          <Link to='/signup' className='text-sm text-indigo-600 hover:text-blue-900' >Don't have an account? Sign Up!</Link>
         </form>
       </div>
     </div>
